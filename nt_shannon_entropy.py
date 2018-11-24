@@ -9,8 +9,8 @@ Req. External Dependencies: Bio.SeqIO, Bio.Alphabet.IUPAC,
 Bio.SeqRecord.SeqRecord, Bio.Seq.Seq, numpy, matplotlib.pyplot
 
 Author: Michael J. Bale (michael.bale@nih.gov)
-Version: 1.0.2
-Date: 03-31-2018
+Version: 1.0.3
+Date: 11-24-2018
 """
 
 import argparse
@@ -153,7 +153,7 @@ def main(*argv):
                         red instead of blue on plot.
                         '''
                         )
-    parser.add_argument('--MissingData', '-M', nargs='?', const='N', default='-',
+    parser.add_argument('--MissingData', '-M', nargs='?', const='N', default='REAL',
                         help='''
                         If indels are meaningful in data, use this flag to
                         handle them. Default is to handle them as nothing,
@@ -172,8 +172,8 @@ def main(*argv):
         sys.exit("Error opening sequence file: " + args['fasta'][0])
     #/try
 
-    if not((args['MissingData'].upper() == 'REAL') and (
-            args['MissingData'].upper() == 'N') and (
+    if not((args['MissingData'].upper() == 'REAL') or (
+            args['MissingData'].upper() == 'N') or (
             args['MissingData'].upper() == '-')):
         sys.exit("Invalid MissingData argument: " + args['MissingData'] + 
                  "\n\nPlease Use 'Real', 'N', or '-'")
