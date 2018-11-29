@@ -221,7 +221,7 @@ def main(argv):
     phylip_aln_file = convert_alignment(args['in_file'][0], args['style'])
     print("Running SMS and PhyML...")
     subprocess_args = [path_to_sms, "-i", phylip_aln_file, "-d", "nt", "-t"]
-    subprocess.run(subprocess_args, stdout=open("root_to_tip.log", "w"))
+    subprocess.run(subprocess_args, stdout=open("root_to_tip.log", "w"), shell=True)
     print("PhyML tree created...")
     tree_file_name = phylip_aln_file + "_phyml_tree.txt"
 
