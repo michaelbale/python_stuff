@@ -10,6 +10,7 @@ import itertools
 import math
 import os
 import random as rand
+import re
 import sys
 from Bio import SeqIO
 from Bio.Alphabet import IUPAC
@@ -27,9 +28,10 @@ def _store_as_fasta(alignment, windows, random, len_windows,
         new_dir_name = in_file + "_randWindows_dir"
     else:
         new_dir_name = in_file + "_contWindows_dir"
+    file_name = re.split(r"[\\/]", in_file)[-1]
     if not os.path.isdir(new_dir_name):
         os.makedirs(new_dir_name)
-    new_in_file = ".\\" + new_dir_name + "\\" + in_file
+    new_in_file = new_dir_name + "\\" + file_name
     if(random):
         _store_as_array_text(windows, random, len_windows,
                              num_windows, step, new_in_file)
@@ -42,7 +44,7 @@ def _store_as_fasta(alignment, windows, random, len_windows,
             tmp_list.extend([seq[index] for index in window])
             new_seq = "".join(tmp_list)
             new_aln.append(SeqRecord(Seq(new_seq, IUPAC.IUPACUnambiguousDNA), sequence.id, description=""))
-        new_file_name = ".\\" + new_dir_name + "\\" + in_file + "-window"
+        new_file_name = new_dir_name + "\\" + file_name + "-window"
         new_file_name += str(i) + "_Size" + str(len_windows)
         if not random:
             new_file_name += "_Step" + str(step)
