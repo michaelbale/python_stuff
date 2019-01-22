@@ -131,7 +131,7 @@ def analyze_longitudinal_groups(time_file, paired_taxa_distance):
     file_content = [x.strip() for x in file_content]
     file_dict = {x.split()[0] : x.split()[1] for x in file_content}
     try:
-        all(isinstance(float(v)) == float for v in file_dict.values())
+        all(isinstance(float(v), float) for v in file_dict.values())
     except ValueError as err:
         print(str(err))
         quit()
@@ -220,8 +220,8 @@ def main(argv):
     print("Creating Phylip File...")
     phylip_aln_file = convert_alignment(args['in_file'][0], args['style'])
     print("Running SMS and PhyML...")
-    subprocess_args = [path_to_sms, "-i", phylip_aln_file, "-d", "nt", "-t"]
-    subprocess.run(subprocess_args, stdout=open("root_to_tip.log", "w"), shell=True)
+    subprocess_args = path_to_sms + " -i " + phylip_aln_file + " -d nt -t -s SPR"
+    subprocess.run(subprocess_args, stdout=open("root_to_tip.log", "w"))
     print("PhyML tree created...")
     tree_file_name = phylip_aln_file + "_phyml_tree.txt"
 
