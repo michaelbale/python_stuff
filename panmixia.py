@@ -1,4 +1,3 @@
-#! /mnt/nasapps/development/python/3.4.9/bin/python3
 
 # -*- coding: utf-8 -*-
 """
